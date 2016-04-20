@@ -1,7 +1,6 @@
 from .exif import *
 from .tags import *
 from .utils import *
-from .makernote import *
 
 __version__ = '0.1.0'
 

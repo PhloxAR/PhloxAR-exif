@@ -24,7 +24,7 @@ class Formatter(logging.Formatter):
         else:
             log_format = '%(message)s'
 
-        super(logging.Formatter, self).__init__(self, log_format)
+        logging.Formatter.__init__(self, log_format)
 
     def format(self, record):
         if self.debug and self.color:
@@ -46,9 +46,10 @@ class Formatter(logging.Formatter):
         return logging.Formatter.format(self, record)
 
 
-class Handler(logging.StreamHandler):
+class MHandler(logging.StreamHandler):
     def __init__(self, log_level, debug=False, color=False):
-        super(logging.StreamHandler, self).__init__(self, sys.stdout)
+        # super(logging.StreamHandler, self).__init__()
+        logging.StreamHandler.__init__(self, sys.stdout)
         self.color = color
         self.debug = debug
         self.setFormatter(Formatter(debug, color))
@@ -69,7 +70,7 @@ def setup_logger(debug, color):
         log_level = logging.INFO
 
     logger = logging.getLogger('exif')
-    stream = Handler(log_level, debug, color)
+    stream = MHandler(log_level, debug, color)
     logger.addHandler(stream)
     logger.setLevel(log_level)
 

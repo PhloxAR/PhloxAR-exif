@@ -2,8 +2,9 @@
 
 from __future__ import absolute_import, division
 from __future__ import print_function, unicode_literals
-from ..utils import make_string, make_string_uc
+# from ..utils import make_string, make_string_uc
 
+DEFAULT_STOP_TAG = 'UNDEF'
 
 # field type description as (length, abbreviation, full name) tuples
 FIELD_TYPES = (

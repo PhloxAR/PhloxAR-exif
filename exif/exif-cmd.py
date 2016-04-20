@@ -5,13 +5,15 @@
 Runs Exif tag extraction in command line.
 """
 
+from __future__ import absolute_import
 import sys
 import getopt
 import timeit
-from .tags import DEFAULT_STOP_TAG, FIELD_TYPES
-from .exif import process_file, exif_log, __version__
+from tags import DEFAULT_STOP_TAG, FIELD_TYPES
+from core import process_file, __version__
+from utils import get_logger, setup_logger
 
-logger = exif_log.get_logger()
+logger = get_logger()
 
 
 def usage(exit_status):
@@ -69,7 +71,7 @@ def main():
     if not args:
         usage(2)
 
-    exif_log.setup_logger(debug, color)
+    setup_logger(debug, color)
 
     # output info for each file
     for filename in args:
