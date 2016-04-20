@@ -1,21 +1,4 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-##
-# Copyright 2016(c) Matthias Y. Chen
-# <matthiasychen@gmail.com/matthias_cy@outlook.com>
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-##
 
 import sys
 import logging
@@ -91,12 +74,6 @@ def setup_logger(debug, color):
     logger.setLevel(log_level)
 
 
-def ord_(d):
-    if isinstance(d, str):
-        return ord(d)
-    return d
-
-
 def make_string(seq):
     """
     Don't throw an exception when given an out of range character.
@@ -122,6 +99,7 @@ def make_string_uc(seq):
     user comment. First 8 bytes give coding system
     e.g. ASCII vs. JIS vs Unicode
     """
+    code = seq[0:8]
     seq = seq[8:]
     # of course, this is only correct if ASCII, and the standard explicitly
     # allows JIS and Unicode
@@ -134,7 +112,7 @@ def s2n_motorola(string):
     """
     x = 0
     for c in string:
-        x = (x << 8) | ord_(c)
+        x = (x << 8) | ord(c)
     return x
 
 
@@ -145,8 +123,8 @@ def s2n_intel(string):
     x = 0
     y = 0
     for c in string:
-        x = x | (ord_(c) << y)
-        y += + 8
+        x = x | (ord(c) << y)
+        y += 8
     return x
 
 
